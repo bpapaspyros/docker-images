@@ -22,3 +22,4 @@ RUN git clone https://github.com/ros-industrial/abb_egm_rws_managers && \
 
 FROM poco
 COPY --from=deps /tmp/deps /usr
+LABEL org.opencontainers.image.version="v2.0.5-poco"
