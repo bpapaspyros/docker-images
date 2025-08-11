@@ -9,7 +9,7 @@ on:
       force:
         required: false
         type: boolean
-        default: true
+        default: false
 
 jobs:
   # build-ws:
@@ -94,7 +94,7 @@ jobs:
   build-cuda-toolkit-for-jetson:
     uses: ./.github/workflows/toolkit-build-push.yml
     with:
-      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+      force: true
       variant: cuda
       build_args: |
         --build-arg ROS_DISTRO=jazzy
