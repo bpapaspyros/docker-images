@@ -12,22 +12,23 @@ on:
         default: false
 
 jobs:
-  build-ws:
-    strategy:
-      matrix:
-        ros2_distro: [jazzy]
+  # build-ws:
+  #   strategy:
+  #     matrix:
+  #       ros2_distro: [jazzy]
 
-    name: Build and publish ros2-ws:${{ matrix.ros2_distro }}
-    uses: ./.github/workflows/reusable-build-push.yml
-    with:
-      ros_distro: ${{ matrix.ros2_distro }}
-      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+  #   name: Build and publish ros2-ws:${{ matrix.ros2_distro }}
+  #   uses: ./.github/workflows/reusable-build-push.yml
+  #   with:
+  #     ros_distro: ${{ matrix.ros2_distro }}
+  #     force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+  #   secrets:
+  #     token: ${{ secrets.GITHUB_TOKEN }}
 
   build-ml-toolkit-for-gpu:
     uses: ./.github/workflows/toolkit-build-push.yml
     with:
+      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
       variant: ml
       build_args: |
         --build-arg PYTHON_VERSION=3.12
@@ -44,6 +45,7 @@ jobs:
   build-ml-toolkit-for-cpu:
     uses: ./.github/workflows/toolkit-build-push.yml
     with:
+      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
       variant: ml
       build_args: |
         --build-arg PYTHON_VERSION=3.12
@@ -60,6 +62,7 @@ jobs:
   build-ml-toolkit-for-jetson:
     uses: ./.github/workflows/toolkit-build-push.yml
     with:
+      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
       variant: ml
       # TODO: quite a bit of hardcoding here, we can perhaps handle this better (?)
       build_args: |
@@ -77,6 +80,7 @@ jobs:
   build-cuda-toolkit:
     uses: ./.github/workflows/toolkit-build-push.yml
     with:
+      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
       variant: cuda
       build_args: |
         --build-arg ROS_DISTRO=jazzy
@@ -90,6 +94,7 @@ jobs:
   build-cuda-toolkit-for-jetson:
     uses: ./.github/workflows/toolkit-build-push.yml
     with:
+      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
       variant: cuda
       build_args: |
         --build-arg ROS_DISTRO=jazzy

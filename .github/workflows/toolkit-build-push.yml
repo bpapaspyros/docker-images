@@ -113,20 +113,20 @@ jobs:
           build_flags: ${{ needs.metadata.outputs.build_flags }}
           token: ${{ secrets.token }}
 
-  multi-arch:
-    runs-on: ubuntu-latest
-    name: Merge into a multi-arch image
-    needs: [metadata, build]
-    steps:
-      - uses: aica-technology/.github/.github/actions/ghcr-manifest-merge@v0.6.1
-        with:
-          image_name: ${{ needs.metadata.outputs.image_name }}
-          image_tags: ${{ needs.metadata.outputs.image_tags }}
-          archs: amd64,arm64
-          token: ${{ secrets.token }}
+  # multi-arch:
+  #   runs-on: ubuntu-latest
+  #   name: Merge into a multi-arch image
+  #   needs: [metadata, build]
+  #   steps:
+  #     - uses: aica-technology/.github/.github/actions/ghcr-manifest-merge@v0.6.1
+  #       with:
+  #         image_name: ${{ needs.metadata.outputs.image_name }}
+  #         image_tags: ${{ needs.metadata.outputs.image_tags }}
+  #         archs: amd64,arm64
+  #         token: ${{ secrets.token }}
 
-      - name: Create git tag
-        if: ${{ needs.metadata.outputs.git_tag != '' }}
-        uses: aica-technology/.github/.github/actions/git-tag@v0.8.1
-        with:
-          tag: ${{ needs.metadata.outputs.git_tag }}
+  #     - name: Create git tag
+  #       if: ${{ needs.metadata.outputs.git_tag != '' }}
+  #       uses: aica-technology/.github/.github/actions/git-tag@v0.8.1
+  #       with:
+  #         tag: ${{ needs.metadata.outputs.git_tag }}
